@@ -1,9 +1,9 @@
 {
-  "name": "happy-birthday-tree",
+  "name": "love-letter-film",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "A birthday film in four acts: draw a Cupid bow, strike a heart, and watch it bloom into a tree of hearts. Vanilla JS + GSAP, one canvas, no framework.",
+  "description": "An interactive love film: draw Cupid's bow, strike a heart, and watch it bloom into a tree of petals. Vanilla JS + GSAP, one canvas, no framework.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
