@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>For You, With Love ♥</title>
-  <meta name="description" content="An interactive love letter: draw Cupid's bow, awaken a heart, and watch our love bloom into petals." />
+  <title>I'm Sorry ♥</title>
+  <meta name="description" content="An interactive apology: draw Cupid's bow, awaken a heart, and watch my sorry bloom into petals." />
   <meta name="theme-color" content="#f7e7dc" />
   <link rel="icon" type="image/png" href="/favicon.png" />
 
@@ -26,11 +26,11 @@
          A single beating heart on a warm field. It is the only thing the
          visitor has to do: tap it. Real <button> so it is tappable + keyboard
          focusable; everything decorative around it is aria-hidden. -->
-    <section class="hero" id="hero" aria-label="Draw the bow to open your card">
+    <section class="hero" id="hero" aria-label="Draw the bow to open my apology">
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__motes" id="motes" aria-hidden="true"></div>
 
-      <p class="hero__eyebrow" id="eyebrow">a little love, just for you</p>
+      <p class="hero__eyebrow" id="eyebrow">a little sorry, just for you</p>
 
       <!-- THE TARGET — the heart the arrow flies to (GSAP animates .target) -->
       <div class="targetWrap" aria-hidden="true">
@@ -178,14 +178,14 @@
       <div class="camera" id="camera">
         <p class="kEyebrow" id="kEyebrow">from my heart&hellip;</p>
         <h2 class="headline" id="headline">
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">I Love</span></span></span>
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">You</span></span></span>
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">I'm</span></span></span>
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">Sorry</span></span></span>
         </h2>
         <svg class="uline" id="uline" viewBox="0 0 300 26" fill="none" aria-hidden="true">
           <path class="uline__path" d="M8 16C56 7 132 4 178 6c30 1 78 5 114 12-40 3-108 4-176 3"
                 stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <p class="kSub" id="kSub">you make every moment feel like love</p>
+        <p class="kSub" id="kSub">I never meant to hurt you</p>
       </div>
 
       <div class="bar bar--top" id="barTop"></div>
@@ -197,10 +197,10 @@
 
     <!-- ACT 4 — THE HAND-LETTERED WISH (over the tree) ------------------------ -->
     <div class="wish" id="wish" aria-hidden="true">
-      <p class="wish__eyebrow" id="wEyebrow">now, and always&hellip;</p>
-      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">I Love You</h1></div>
+      <p class="wish__eyebrow" id="wEyebrow">truly, and always&hellip;</p>
+      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">I Am Sorry</h1></div>
       <span class="wish__rule" id="wRule"></span>
-      <p class="wish__sub" id="wSub">may our love keep blooming</p>
+      <p class="wish__sub" id="wSub">may we heal and grow again</p>
     </div>
 
     <!-- Play the film again once it has settled. -->
@@ -219,7 +219,7 @@
   </main>
 
   <!-- Accessible equivalent for reduced-motion + screen readers. -->
-  <p class="sr-only">I love you.</p>
+  <p class="sr-only">I am So Sorry.</p>
 
   <script type="module" src="./love.js"></script>
 </body>
