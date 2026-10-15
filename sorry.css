@@ -1,0 +1,39 @@
+/* ---- broken heart + gold seam ---- */
+.heart__svg{overflow:visible}
+.seam{filter:drop-shadow(0 0 2.5px #ffb43a) drop-shadow(0 0 7px rgba(255,205,100,.9))}
+
+/* ---- letter button ---- */
+.sx-btn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;z-index:30;display:inline-flex;gap:.5em;align-items:center;
+  padding:.7em 1.2em;border:0;border-radius:999px;cursor:pointer;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.04em;
+  color:#a80f43;background:rgba(255,246,238,.92);box-shadow:0 6px 22px rgba(168,15,67,.25);
+  opacity:0;pointer-events:none;transform:translate(-50%,-10px);transition:opacity .7s,transform .7s var(--ease-out)}
+.sx-btn.is-shown{opacity:1;pointer-events:auto;transform:translate(-50%,0);animation:sxPulse 2.6s ease-in-out 1s infinite}
+@keyframes sxPulse{50%{box-shadow:0 6px 30px rgba(255,95,134,.55)}}
+
+/* ---- the letter ---- */
+.sx-letter{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:18px;background:rgba(48,6,24,.58);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .5s}
+.sx-letter.is-open{opacity:1;pointer-events:auto}
+.sx-paper{position:relative;width:min(470px,100%);max-height:88vh;overflow:auto;padding:30px 26px 26px;border-radius:18px;
+  background:linear-gradient(170deg,#fffaf3,#fbe6d8);color:#6e0a31;box-shadow:0 30px 80px rgba(0,0,0,.45);
+  font-family:'Cormorant Garamond',Georgia,serif;transform:translateY(28px) scale(.97);transition:transform .7s var(--ease-out)}
+.is-open .sx-paper{transform:none}
+.sx-close{position:absolute;top:8px;right:12px;border:0;background:none;font-size:1.8rem;line-height:1;color:#a9808a;cursor:pointer}
+.sx-to{font:2.1rem 'Great Vibes',cursive;color:#a80f43;margin-bottom:.2em}
+.sx-p,.sx-ask{opacity:0;transform:translateY(10px)}
+.is-open .sx-p,.is-open .sx-ask{animation:sxIn .9s var(--ease-out) forwards;animation-delay:calc(var(--i)*1.15s + .7s)}
+@keyframes sxIn{to{opacity:1;transform:none}}
+.sx-p{font-size:1.2rem;line-height:1.55;margin:.65em 0}
+.sx-sign{font:1.7rem 'Great Vibes',cursive;text-align:right;color:#a80f43}
+.sx-q{font:700 1.3rem Fraunces,Georgia,serif;margin:1em 0 .7em;text-align:center}
+.sx-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.sx-yes,.sx-no{border:0;cursor:pointer;border-radius:999px;padding:.75em 1.3em;font:700 1rem 'Cormorant Garamond',Georgia,serif}
+.sx-yes{color:#fff;background:linear-gradient(135deg,#ff5f86,#d4235c);box-shadow:0 8px 22px rgba(212,35,92,.4)}
+.sx-no{color:#a80f43;background:rgba(168,15,67,.1)}
+.sx-reply{font:700 1.25rem Fraunces,Georgia,serif;text-align:center;margin-top:1em;animation:sxIn .8s forwards;opacity:0}
+.sx-reply[hidden],.sx-ask[hidden],.sx-no[hidden]{display:none}
+
+/* ---- arrow volley ---- */
+.sx-arrow{position:fixed;left:0;top:0;z-index:50;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 7px rgba(255,200,90,.85))}
+.sx-heart{position:fixed;z-index:50;pointer-events:none;aspect-ratio:24/22}
+@media (prefers-reduced-motion:reduce){.sx-p,.sx-ask{opacity:1;transform:none;animation:none!important}}

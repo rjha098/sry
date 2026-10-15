@@ -14,6 +14,7 @@
 
   <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="./love.css" />
+  <link rel="stylesheet" href="./sorry.css" />
 </head>
 <body>
   <main class="scene">
@@ -37,7 +38,7 @@
         <div class="target" id="target">
           <span class="heart__glow" aria-hidden="true"></span>
           <span class="target__heart" id="targetHeart">
-            <svg class="heart__svg" viewBox="0 0 100 92" aria-hidden="true">
+            <svg class="heart__svg" id="heartSvg" viewBox="0 0 100 92" aria-hidden="true">
               <defs>
                 <radialGradient id="hg" cx="38%" cy="30%" r="80%">
                   <stop offset="0%"  stop-color="#ffd9e4" />
@@ -49,10 +50,20 @@
                   <stop offset="0%"  stop-color="rgba(255,255,255,.85)" />
                   <stop offset="34%" stop-color="rgba(255,255,255,0)" />
                 </linearGradient>
+                <clipPath id="clipL"><polygon points="-20,-20 50,-20 50,21 44,32 56,44 43,58 55,70 46,80 50,100 -20,100" /></clipPath>
+                <clipPath id="clipR"><polygon points="120,-20 50,-20 50,21 44,32 56,44 43,58 55,70 46,80 50,100 120,100" /></clipPath>
               </defs>
-              <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
-              <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
-              <ellipse cx="34" cy="30" rx="8.5" ry="5.4" fill="#fff" opacity=".72" style="mix-blend-mode:screen" />
+              <!-- a BROKEN heart: two halves with a gap. The arrow joins them with gold. -->
+              <g id="hL" clip-path="url(#clipL)">
+                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
+                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
+                <ellipse cx="34" cy="30" rx="8.5" ry="5.4" fill="#fff" opacity=".72" style="mix-blend-mode:screen" />
+              </g>
+              <g id="hR" clip-path="url(#clipR)">
+                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
+                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
+              </g>
+              <path id="seam" class="seam" d="M50 21 L44 32 L56 44 L43 58 L55 70 L46 80 L50 88" fill="none" stroke="#ffd36a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </span>
         </div>
