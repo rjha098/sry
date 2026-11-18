@@ -2,13 +2,21 @@
 .heart__svg{overflow:visible}
 .seam{filter:drop-shadow(0 0 2.5px #ffb43a) drop-shadow(0 0 7px rgba(255,205,100,.9))}
 
-/* ---- letter button ---- */
-.sx-btn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;z-index:30;display:inline-flex;gap:.5em;align-items:center;
-  padding:.7em 1.2em;border:0;border-radius:999px;cursor:pointer;font:600 .95rem 'Cormorant Garamond',Georgia,serif;letter-spacing:.04em;
-  color:#a80f43;background:rgba(255,246,238,.92);box-shadow:0 6px 22px rgba(168,15,67,.25);
-  opacity:0;pointer-events:none;transform:translate(-50%,-10px);transition:opacity .7s,transform .7s var(--ease-out)}
-.sx-btn.is-shown{opacity:1;pointer-events:auto;transform:translate(-50%,0);animation:sxPulse 2.6s ease-in-out 1s infinite}
-@keyframes sxPulse{50%{box-shadow:0 6px 30px rgba(255,95,134,.55)}}
+/* ---- letter button (highlighted: this is THE proposal button) ---- */
+.sx-btn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);left:50%;z-index:30;display:inline-flex;gap:.6em;align-items:center;justify-content:center;
+  max-width:calc(100vw - 28px);padding:.95em 1.6em;border:2px solid #ffe3a3;border-radius:999px;cursor:pointer;text-align:center;
+  font:700 clamp(1rem,3.8vw,1.2rem)/1.2 'Cormorant Garamond',Georgia,serif;letter-spacing:.03em;
+  color:#fff;text-shadow:0 1px 3px rgba(110,10,49,.55);
+  background:linear-gradient(135deg,#ff5f86,#d4235c 55%,#a80f43);
+  box-shadow:0 0 0 0 rgba(255,95,134,.7),0 10px 30px rgba(168,15,67,.5),inset 0 1px 0 rgba(255,255,255,.45);
+  opacity:0;pointer-events:none;transform:translate(-50%,-14px) scale(.92);transition:opacity .7s,transform .7s var(--ease-out)}
+.sx-btn span{font-size:1.35em;display:inline-block;animation:sxBeat 1.3s ease-in-out infinite}
+.sx-btn.is-shown{opacity:1;pointer-events:auto;transform:translate(-50%,0) scale(1);animation:sxRing 1.9s ease-out 1s infinite}
+.sx-btn.is-shown:hover{filter:brightness(1.08)}
+.sx-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@keyframes sxRing{0%{box-shadow:0 0 0 0 rgba(255,95,134,.75),0 10px 30px rgba(168,15,67,.5),inset 0 1px 0 rgba(255,255,255,.45)}
+  70%,100%{box-shadow:0 0 0 22px rgba(255,95,134,0),0 10px 30px rgba(168,15,67,.5),inset 0 1px 0 rgba(255,255,255,.45)}}
+@keyframes sxBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.25)}50%{transform:scale(1)}}
 
 /* ---- the letter ---- */
 .sx-letter{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:18px;background:rgba(48,6,24,.58);
@@ -36,4 +44,4 @@
 /* ---- arrow volley ---- */
 .sx-arrow{position:fixed;left:0;top:0;z-index:50;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 7px rgba(255,200,90,.85))}
 .sx-heart{position:fixed;z-index:50;pointer-events:none;aspect-ratio:24/22}
-@media (prefers-reduced-motion:reduce){.sx-p,.sx-ask{opacity:1;transform:none;animation:none!important}}
+@media (prefers-reduced-motion:reduce){.sx-p,.sx-ask{opacity:1;transform:none;animation:none!important}.sx-btn.is-shown,.sx-btn span{animation:none}}

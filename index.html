@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>I'm Sorry ♥</title>
-  <meta name="description" content="An interactive apology: draw Cupid's bow, awaken a heart, and watch my sorry bloom into petals." />
+  <title>Will You Be Mine? ♥</title>
+  <meta name="description" content="A little proposal: draw Cupid's bow, awaken a heart, and watch my love bloom into petals." />
   <meta name="theme-color" content="#f7e7dc" />
   <link rel="icon" type="image/png" href="/favicon.png" />
 
@@ -23,15 +23,12 @@
          intro hands off, then it draws its own warm sky + blossom tree. -->
     <canvas id="tree" class="tree" aria-label="A blossom tree grows and blooms into a heart made of petals" role="img"></canvas>
 
-    <!-- ACT 1 — THE INVITATION ------------------------------------------------
-         A single beating heart on a warm field. It is the only thing the
-         visitor has to do: tap it. Real <button> so it is tappable + keyboard
-         focusable; everything decorative around it is aria-hidden. -->
-    <section class="hero" id="hero" aria-label="Draw the bow to open my apology">
+    <!-- ACT 1 — THE INVITATION ------------------------------------------------ -->
+    <section class="hero" id="hero" aria-label="Draw the bow to open my proposal">
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__motes" id="motes" aria-hidden="true"></div>
 
-      <p class="hero__eyebrow" id="eyebrow">a little sorry, just for you</p>
+      <p class="hero__eyebrow" id="eyebrow">ek chhoti si baat, sirf aapke liye</p>
 
       <!-- THE TARGET — the heart the arrow flies to (GSAP animates .target) -->
       <div class="targetWrap" aria-hidden="true">
@@ -69,9 +66,7 @@
         </div>
       </div>
 
-      <!-- THE BOW + ARROW — draw the string back, release to fire. The rig is
-           placed lower-left and rotated by JS to aim at the heart, so the shot
-           travels on a diagonal. A real control: role=button + keyboard drag. -->
+      <!-- THE BOW + ARROW — draw the string back, release to fire. -->
       <div class="archery" id="archery" role="button" tabindex="0"
            aria-label="Draw the bow and release to send the arrow to the heart">
 
@@ -109,8 +104,7 @@
             <!-- leather grip over the belly -->
             <rect x="216" y="206" width="28" height="70" rx="9" fill="url(#grip)" />
             <path d="M219 220h22 M219 236h22 M219 252h22" stroke="rgba(0,0,0,.35)" stroke-width="2" />
-            <!-- the string: two segments meeting at the nock (JS animates the nock).
-                 A warm taupe so the taut string actually reads against the cream. -->
+            <!-- the string: two segments meeting at the nock (JS animates the nock). -->
             <line class="bow__str" id="strL" x1="40" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
             <line class="bow__str" id="strR" x1="420" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
             <circle class="bow__serving" id="serving" cx="230" cy="96" r="4.5" fill="#6f5137" />
@@ -140,7 +134,7 @@
               </linearGradient>
             </defs>
 
-            <!-- shaft (dark wood so it reads against the cream) -->
+            <!-- shaft -->
             <rect x="29.4" y="30" width="5.2" height="168" rx="2.6" fill="url(#shaft)" />
 
             <!-- angel wings flanking the heart tip -->
@@ -170,15 +164,10 @@
       <p class="hero__hint" id="hint">pull &amp; release</p>
     </section>
 
-    <!-- ACT 2 — THE FLOOD -----------------------------------------------------
-         The heart bursts into this circle at its landing point, and it swallows
-         the frame in rose. Same trick as the intro dot: no cross-fade anywhere,
-         the colour just arrives. -->
+    <!-- ACT 2 — THE FLOOD ----------------------------------------------------- -->
     <div class="flood" id="flood" aria-hidden="true"></div>
 
-    <!-- ACT 3 — THE WISH (kinetic type on the flood) --------------------------
-         Lives inside the flood's own colour, revealed by it. Every glyph hinges
-         up out of its mask — nothing fades. -->
+    <!-- ACT 3 — THE WISH (kinetic type on the flood) -------------------------- -->
     <div class="field" id="field" aria-hidden="true">
       <div class="blob blob--1"></div>
       <div class="blob blob--2"></div>
@@ -187,16 +176,16 @@
       <div class="fvignette"></div>
 
       <div class="camera" id="camera">
-        <p class="kEyebrow" id="kEyebrow">from my heart&hellip;</p>
+        <p class="kEyebrow" id="kEyebrow">dil ki gehraiyon se&hellip;</p>
         <h2 class="headline" id="headline">
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">I'm</span></span></span>
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">Sorry</span></span></span>
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">I Love</span></span></span>
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">You</span></span></span>
         </h2>
         <svg class="uline" id="uline" viewBox="0 0 300 26" fill="none" aria-hidden="true">
           <path class="uline__path" d="M8 16C56 7 132 4 178 6c30 1 78 5 114 12-40 3-108 4-176 3"
                 stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <p class="kSub" id="kSub">I never meant to hurt you</p>
+        <p class="kSub" id="kSub">aap meri duniya ho, aur hamesha rahogi</p>
       </div>
 
       <div class="bar bar--top" id="barTop"></div>
@@ -208,10 +197,10 @@
 
     <!-- ACT 4 — THE HAND-LETTERED WISH (over the tree) ------------------------ -->
     <div class="wish" id="wish" aria-hidden="true">
-      <p class="wish__eyebrow" id="wEyebrow">truly, and always&hellip;</p>
-      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">I Am Sorry</h1></div>
+      <p class="wish__eyebrow" id="wEyebrow">I love you, aur isiliye poochta hoon&hellip;</p>
+      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">Be Mine?</h1></div>
       <span class="wish__rule" id="wRule"></span>
-      <p class="wish__sub" id="wSub">may we heal and grow again</p>
+      <p class="wish__sub" id="wSub">mere saath, har mod pe, hamesha ke liye</p>
     </div>
 
     <!-- Play the film again once it has settled. -->
@@ -230,7 +219,7 @@
   </main>
 
   <!-- Accessible equivalent for reduced-motion + screen readers. -->
-  <p class="sr-only">I am So Sorry.</p>
+  <p class="sr-only">I love you. Will you be mine?</p>
 
   <script type="module" src="./love.js"></script>
 </body>
