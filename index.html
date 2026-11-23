@@ -1,185 +1,3 @@
-<!-- <!doctype html>
-<html lang="hi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ek sawaal, sirf aapke liye 💗</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0}
-html,body{height:100%;overflow:hidden;color:#ffeaf1;font-family:'Cormorant Garamond',Georgia,serif}
-body{background:radial-gradient(120% 90% at 50% 100%,#4a1048 0,#170b2e 45%,#05030c 100%)}
-canvas{position:fixed;inset:0;width:100%;height:100%}
-#stage{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center}
-.pane{position:absolute;max-width:min(680px,92vw);opacity:0;transform:translateY(14px);transition:opacity 1s,transform 1s;pointer-events:none}
-.pane.on{opacity:1;transform:none;pointer-events:auto}
-.line{font-size:clamp(1.5rem,5.2vw,2.3rem);font-style:italic;line-height:1.4}
-.line.big{font-family:'Great Vibes',cursive;font-style:normal;font-size:clamp(2.4rem,9vw,4.6rem);color:#ffc2d4;text-shadow:0 0 26px rgba(255,95,134,.65)}
-.hint{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:0;right:0;text-align:center;font-size:.95rem;opacity:.5;letter-spacing:.08em;transition:opacity .5s}
-button{font:700 1.2rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;border:0;border-radius:999px;padding:.8em 1.8em;color:#fff}
-.go,#yes{background:linear-gradient(135deg,#ff5f86,#c2185b);box-shadow:0 10px 30px rgba(194,24,91,.5)}
-.go{animation:ring 1.9s infinite}
-@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,95,134,.7),0 10px 30px rgba(194,24,91,.5)}70%,100%{box-shadow:0 0 0 22px rgba(255,95,134,0),0 10px 30px rgba(194,24,91,.5)}}
-.orb{width:96px;height:90px;margin:0 auto 24px;animation:beat 1.3s infinite;filter:drop-shadow(0 0 18px #ff5f86)}
-@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.18)}}
-.title{font-family:'Great Vibes',cursive;font-size:clamp(2.8rem,11vw,5.4rem);color:#ffc2d4;text-shadow:0 0 28px rgba(255,95,134,.7);line-height:1.1}
-.sub{font-size:clamp(1.2rem,4vw,1.6rem);font-style:italic;margin:.6em 0 1.2em;opacity:.9}
-.acts{display:flex;gap:18px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
-#yes{transform:scale(var(--s,1));transition:transform .4s;animation:ring 1.9s infinite}
-#no{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35)}
-#no.run{position:fixed;z-index:5;transition:left .22s,top .22s,opacity .5s}
-#msg{min-height:1.6em;margin-top:20px;font-size:1.2rem;color:#ffd36a}
-.ph{display:block;width:min(46vw,190px);aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid #ffd36a;margin:0 auto 18px;box-shadow:0 0 0 6px rgba(255,95,134,.25),0 0 42px rgba(255,95,134,.7);animation:beat 2.6s infinite}
-.ph.m{width:104px;margin-bottom:12px}
-.sign{margin-top:1.2em;font-family:'Great Vibes',cursive;font-size:2rem;color:#ffc2d4}
-</style>
-</head>
-<body>
-<canvas id="c"></canvas>
-<div id="stage">
-  <div class="pane on" id="p0">
-    <img class="ph" src="annu.jpeg" alt="Annu" onload="document.getElementById('orb').style.display='none'" onerror="this.style.display='none'">
-    <svg class="orb" id="orb" viewBox="0 0 24 22"><path d="M12 20C5.5 15 1.5 11.4 1.5 6.9 1.5 3.6 4 1.5 7 1.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.5 2.1 5.5 5.4C23.5 11.4 19.5 15 12 20Z" fill="#ff5f86"/></svg>
-    <p class="sub" id="hi">Aapke liye kuch hai…</p>
-    <button class="go" id="start">Yahan dabaiye 💌</button>
-  </div>
-  <div class="pane line" id="pl"></div>
-  <div class="pane" id="pq">
-    <img class="ph m" src="annu.jpeg" alt="" onerror="this.style.display='none'">
-    <p class="sub">aur isiliye aaj poochta hoon…</p>
-    <h1 class="title" id="qt">Kya aap meri banengi?</h1>
-    <div class="acts"><button id="yes">Haan 💗</button><button id="no" tabindex="-1">Nahi</button></div>
-    <p id="msg"></p>
-  </div>
-  <div class="pane" id="pw">
-    <img class="ph" src="annu.jpeg" alt="" onerror="this.style.display='none'">
-    <h1 class="title" id="wt">Shukriya 💗</h1>
-    <p class="line" style="margin-top:.6em">Aapne meri duniya aur khoobsurat bana di.</p>
-    <p class="line big" style="margin-top:.4em">I love you</p>
-    <p class="line" style="margin-top:.6em">Hamesha aapke saath, har mod pe.</p>
-    <p class="sign" id="sign"></p>
-  </div>
-</div>
-
-<p class="hint" id="hint"></p>
-
-<script>
-// ================== YAHAN SETTINGS BADLO ==================
-const CFG = {
-  ntfyTopic: "rj-love-8f3k29x",   // ntfy app me jo topic subscribe kiya (nahi chahiye to "")
-  web3formsKey: "277f619e-fc26-4ae6-a180-ed0845c06799", // Web3Forms ki key (email ke liye)
-  from: "Sirf aapka ❤",           // apna naam / sign
-  to: "Annu"                      // uska naam (ya link me ?to=Naam)
-};
-const LINES = [
-  ["Aapne time manga tha…"],
-  ["Maine intezaar kiya, kyunki jo cheez dil se chahiye hoti hai, uske liye ruka bhi jaata hai."],
-  ["Aur is intezaar me ek baat bilkul saaf ho gayi —"],
-  ["mere din ki pehli muskaan aap ho, aur raat ki aakhri dua bhi."],
-  ["Aap meri duniya ho", 1],
-  ["Log taaron me sukoon dhoondhte hain, mujhe aapki ek hansi me mil jaata hai."],
-  ["Main perfect nahi hoon, par ek wada karta hoon —"],
-  ["Hamesha aapke saath khada rahunga", 1],
-  ["Har mod pe aapka haath thaame rahunga", 1],
-  ["Jab aap thakogi, main sahara banunga. Jab duniya ek taraf hogi, main aapki taraf."],
-  ["Aapke saath ka har kal, mere har aaj se zyada khoobsurat hoga."],
-  ["I love you", 1]
-];
-const NOMSG = ["Nahi? 😏","Ek baar phir sochiye 🥺","Pakka? 😢","Dil toot jayega 💔","Ye button thak gaya 🏃","Haan dabana asaan hai 😄","Itna bhi kya sochna 🙈","Bas ek baar 'Haan' bol do 💗"];
-// ==========================================================
-
-const $ = s => document.querySelector(s), sleep = ms => new Promise(r => setTimeout(r, ms));
-const qs = new URLSearchParams(location.search);
-const TO = (qs.get('to') || CFG.to).trim(), FROM = (qs.get('from') || CFG.from).trim();
-if (TO) {
-  $('#hi').textContent = TO + ', aapke liye kuch hai…';
-  $('#qt').textContent = TO + ', kya aap meri banengi?';
-  $('#wt').textContent = 'Shukriya, ' + TO + ' 💗';
-  LINES[0][0] = TO + ', aapne time manga tha…';
-}
-$('#sign').textContent = '— ' + FROM;
-
-// ---- notification (ntfy push + Web3Forms email) ----
-const sent = new Set();
-function notify(key, title, message) {
-  if (sent.has(key)) return; sent.add(key);
-  const body = message + '\n(' + new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) + ')';
-  try {
-    if (CFG.ntfyTopic) fetch('https://ntfy.sh/', {method: 'POST', body: JSON.stringify({topic: CFG.ntfyTopic, title, message: body, tags: ['heart'], priority: 5})}).catch(err => console.warn('notify failed', err));
-    if (CFG.web3formsKey) fetch('https://api.web3forms.com/submit', {method: 'POST', headers: {'Content-Type': 'application/json', Accept: 'application/json'}, body: JSON.stringify({access_key: CFG.web3formsKey, subject: title, from_name: 'Proposal Site', message: body})}).catch(err => console.warn('notify failed', err));
-  } catch (e) {}
-}
-
-// ---- starry sky + hearts ----
-const cv = $('#c'), x = cv.getContext('2d'), D = Math.min(devicePixelRatio || 1, 2);
-let W, H, S = [], P = [], shoot = null;
-function size() {
-  W = innerWidth; H = innerHeight; cv.width = W * D; cv.height = H * D; x.setTransform(D, 0, 0, D, 0, 0);
-  S = Array.from({length: Math.round(W * H / 5000)}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + .3, p: Math.random() * 6.3, s: Math.random() * 2 + .5}));
-}
-addEventListener('resize', size); size();
-function frame(t) {
-  x.clearRect(0, 0, W, H); x.fillStyle = '#fff';
-  for (const s of S) { x.globalAlpha = .3 + .7 * Math.abs(Math.sin(t / 1000 * s.s + s.p)); x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.3); x.fill(); }
-  if (!shoot && Math.random() < .004) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 1};
-  if (shoot) { x.globalAlpha = shoot.l; x.strokeStyle = '#ffe3ee'; x.lineWidth = 2; x.beginPath(); x.moveTo(shoot.x, shoot.y); x.lineTo(shoot.x - 90, shoot.y - 45); x.stroke(); shoot.x += 9; shoot.y += 4.5; shoot.l -= .015; if (shoot.l <= 0) shoot = null; }
-  P = P.filter(p => p.a > 0);
-  for (const p of P) { p.x += p.vx; p.y += p.vy; p.vy += p.g; p.a -= .005; x.globalAlpha = Math.max(p.a, 0); x.fillStyle = p.c; x.font = p.z + 'px serif'; x.fillText('♥', p.x, p.y); }
-  requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
-const COL = ['#ff5f86', '#ffb14e', '#ff8fae', '#ffd36a', '#e23b67'];
-function burst(n, ox, oy) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.3, v = Math.random() * 7 + 2; P.push({x: ox, y: oy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, g: .12, a: 1.4, z: 14 + Math.random() * 22, c: COL[i % 5]}); } }
-
-// ---- panes + story ----
-const panes = ['#p0', '#pl', '#pq', '#pw'].map($);
-const show = el => panes.forEach(p => p.classList.toggle('on', p === el));
-let skip = null;
-const wait = ms => new Promise(r => { const t = setTimeout(r, ms); skip = () => { clearTimeout(t); r(); }; });
-addEventListener('pointerdown', e => { if (skip && !e.target.closest('button')) skip(); });
-
-$('#start').onclick = async () => {
-  notify('open', '💌 Usne page khol liya', 'Wo abhi tera proposal dekh rahi hai.');
-  $('#hint').textContent = 'skip karne ke liye screen par tap karein';
-  $('#p0').classList.remove('on'); await sleep(900);
-  const pl = $('#pl');
-  for (const [t, big] of LINES) {
-    pl.className = 'pane line' + (big ? ' big' : ''); pl.textContent = t;
-    void pl.offsetWidth; pl.classList.add('on');
-    if (big) burst(6, W / 2, H / 2);
-    await wait(2600 + t.length * 50);
-    pl.classList.remove('on'); await sleep(900);
-  }
-  skip = null; $('#hint').style.opacity = 0; show($('#pq'));
-};
-
-// ---- the NO button runs away ----
-const yes = $('#yes'), no = $('#no'); let tries = 0, last = 0;
-function dodge(e) {
-  if (e && e.cancelable) e.preventDefault();
-  const now = Date.now(); if (now - last < 400) return; last = now; tries++;
-  no.classList.add('run');
-  const w = no.offsetWidth, h = no.offsetHeight, r = yes.getBoundingClientRect(); let nx, ny, k = 0;
-  do { nx = 12 + Math.random() * (W - w - 24); ny = 12 + Math.random() * (H - h - 24); k++; }
-  while (k < 40 && nx < r.right + 24 && nx + w > r.left - 24 && ny < r.bottom + 24 && ny + h > r.top - 24);
-  no.style.left = nx + 'px'; no.style.top = ny + 'px';
-  yes.style.setProperty('--s', Math.min(1 + tries * .1, 1.9));
-  $('#msg').textContent = NOMSG[Math.min(tries - 1, NOMSG.length - 1)];
-  if (tries === 1) notify('no', '😄 Usne NO dabane ki koshish ki', 'Button bhaag gaya, ghabrao mat!');
-  if (tries >= 10) { no.style.opacity = 0; no.style.pointerEvents = 'none'; $('#msg').textContent = 'Ab sirf ek hi option bacha hai 😌💗'; }
-}
-['pointerenter', 'pointerdown', 'touchstart', 'mousedown', 'click', 'focus'].forEach(ev => no.addEventListener(ev, dodge, {passive: false}));
-
-yes.onclick = () => {
-  notify('yes', '💗 USNE HAAN BOL DIYA!', 'Proposal accept ho gaya! 🎉');
-  no.style.display = 'none'; show($('#pw'));
-  burst(80, W / 2, H / 2);
-  setInterval(() => burst(3, Math.random() * W, -10), 350);
-};
-</script>
-</body>
-</html> -->
-
 
 
 <!doctype html>
@@ -222,22 +40,21 @@ button{font:700 1.2rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;border:
 <canvas id="c"></canvas>
 <div id="stage">
   <div class="pane on" id="p0">
-    <img class="ph" src="/annu.jepg" alt="Annu" onload="document.getElementById('orb').style.display='none'" onerror="this.style.display='none'">
-    <svg class="orb" id="orb" viewBox="0 0 24 22"><path d="M12 20C5.5 15 1.5 11.4 1.5 6.9 1.5 3.6 4 1.5 7 1.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.5 2.1 5.5 5.4C23.5 11.4 19.5 15 12 20Z" fill="#ff5f86"/></svg>
+<img class="ph" src="/annu.jpeg" alt="Annu"
+onload="document.getElementById('orb').style.display='none'"
+onerror="this.style.display='none'">    <svg class="orb" id="orb" viewBox="0 0 24 22"><path d="M12 20C5.5 15 1.5 11.4 1.5 6.9 1.5 3.6 4 1.5 7 1.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.5 2.1 5.5 5.4C23.5 11.4 19.5 15 12 20Z" fill="#ff5f86"/></svg>
     <p class="sub" id="hi">Aapke liye kuch hai…</p>
     <button class="go" id="start">Yahan dabaiye 💌</button>
   </div>
   <div class="pane line" id="pl"></div>
   <div class="pane" id="pq">
-    <img class="ph m" src="/annu.jpeg" alt="" onerror="this.style.display='none'">
-    <p class="sub">aur isiliye aaj poochta hoon…</p>
+<img class="ph m" src="/annu.jpeg" alt="Annu">   <p class="sub">aur isiliye aaj poochta hoon…</p>
     <h1 class="title" id="qt">Kya aap meri banengi?</h1>
     <div class="acts"><button id="yes">Haan 💗</button><button id="no" tabindex="-1">Nahi</button></div>
     <p id="msg"></p>
   </div>
   <div class="pane" id="pw">
-    <img class="ph" src="/annu.jpeg" alt="" onerror="this.style.display='none'">
-    <h1 class="title" id="wt">Shukriya 💗</h1>
+<img class="ph m" src="/annu.jpeg" alt="Annu">    <h1 class="title" id="wt">Shukriya 💗</h1>
     <p class="line" style="margin-top:.6em">Aapne meri duniya aur khoobsurat bana di.</p>
     <p class="line big" style="margin-top:.4em">I love you</p>
     <p class="line" style="margin-top:.6em">Hamesha aapke saath, har mod pe.</p>
