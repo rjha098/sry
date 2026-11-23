@@ -1,226 +1,365 @@
-<!doctype html>
-<html lang="en">
+<!-- <!doctype html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Will You Be Mine? ♥</title>
-  <meta name="description" content="A little proposal: draw Cupid's bow, awaken a heart, and watch my love bloom into petals." />
-  <meta name="theme-color" content="#f7e7dc" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet" />
-
-  <script>document.documentElement.classList.add('js')</script>
-  <link rel="stylesheet" href="./love.css" />
-  <link rel="stylesheet" href="./sorry.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ek sawaal, sirf aapke liye 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;color:#ffeaf1;font-family:'Cormorant Garamond',Georgia,serif}
+body{background:radial-gradient(120% 90% at 50% 100%,#4a1048 0,#170b2e 45%,#05030c 100%)}
+canvas{position:fixed;inset:0;width:100%;height:100%}
+#stage{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center}
+.pane{position:absolute;max-width:min(680px,92vw);opacity:0;transform:translateY(14px);transition:opacity 1s,transform 1s;pointer-events:none}
+.pane.on{opacity:1;transform:none;pointer-events:auto}
+.line{font-size:clamp(1.5rem,5.2vw,2.3rem);font-style:italic;line-height:1.4}
+.line.big{font-family:'Great Vibes',cursive;font-style:normal;font-size:clamp(2.4rem,9vw,4.6rem);color:#ffc2d4;text-shadow:0 0 26px rgba(255,95,134,.65)}
+.hint{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:0;right:0;text-align:center;font-size:.95rem;opacity:.5;letter-spacing:.08em;transition:opacity .5s}
+button{font:700 1.2rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;border:0;border-radius:999px;padding:.8em 1.8em;color:#fff}
+.go,#yes{background:linear-gradient(135deg,#ff5f86,#c2185b);box-shadow:0 10px 30px rgba(194,24,91,.5)}
+.go{animation:ring 1.9s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,95,134,.7),0 10px 30px rgba(194,24,91,.5)}70%,100%{box-shadow:0 0 0 22px rgba(255,95,134,0),0 10px 30px rgba(194,24,91,.5)}}
+.orb{width:96px;height:90px;margin:0 auto 24px;animation:beat 1.3s infinite;filter:drop-shadow(0 0 18px #ff5f86)}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.18)}}
+.title{font-family:'Great Vibes',cursive;font-size:clamp(2.8rem,11vw,5.4rem);color:#ffc2d4;text-shadow:0 0 28px rgba(255,95,134,.7);line-height:1.1}
+.sub{font-size:clamp(1.2rem,4vw,1.6rem);font-style:italic;margin:.6em 0 1.2em;opacity:.9}
+.acts{display:flex;gap:18px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
+#yes{transform:scale(var(--s,1));transition:transform .4s;animation:ring 1.9s infinite}
+#no{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35)}
+#no.run{position:fixed;z-index:5;transition:left .22s,top .22s,opacity .5s}
+#msg{min-height:1.6em;margin-top:20px;font-size:1.2rem;color:#ffd36a}
+.ph{display:block;width:min(46vw,190px);aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid #ffd36a;margin:0 auto 18px;box-shadow:0 0 0 6px rgba(255,95,134,.25),0 0 42px rgba(255,95,134,.7);animation:beat 2.6s infinite}
+.ph.m{width:104px;margin-bottom:12px}
+.sign{margin-top:1.2em;font-family:'Great Vibes',cursive;font-size:2rem;color:#ffc2d4}
+</style>
 </head>
 <body>
-  <main class="scene">
+<canvas id="c"></canvas>
+<div id="stage">
+  <div class="pane on" id="p0">
+    <img class="ph" src="annu.jpeg" alt="Annu" onload="document.getElementById('orb').style.display='none'" onerror="this.style.display='none'">
+    <svg class="orb" id="orb" viewBox="0 0 24 22"><path d="M12 20C5.5 15 1.5 11.4 1.5 6.9 1.5 3.6 4 1.5 7 1.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.5 2.1 5.5 5.4C23.5 11.4 19.5 15 12 20Z" fill="#ff5f86"/></svg>
+    <p class="sub" id="hi">Aapke liye kuch hai…</p>
+    <button class="go" id="start">Yahan dabaiye 💌</button>
+  </div>
+  <div class="pane line" id="pl"></div>
+  <div class="pane" id="pq">
+    <img class="ph m" src="annu.jpeg" alt="" onerror="this.style.display='none'">
+    <p class="sub">aur isiliye aaj poochta hoon…</p>
+    <h1 class="title" id="qt">Kya aap meri banengi?</h1>
+    <div class="acts"><button id="yes">Haan 💗</button><button id="no" tabindex="-1">Nahi</button></div>
+    <p id="msg"></p>
+  </div>
+  <div class="pane" id="pw">
+    <img class="ph" src="annu.jpeg" alt="" onerror="this.style.display='none'">
+    <h1 class="title" id="wt">Shukriya 💗</h1>
+    <p class="line" style="margin-top:.6em">Aapne meri duniya aur khoobsurat bana di.</p>
+    <p class="line big" style="margin-top:.4em">I love you</p>
+    <p class="line" style="margin-top:.6em">Hamesha aapke saath, har mod pe.</p>
+    <p class="sign" id="sign"></p>
+  </div>
+</div>
 
-    <!-- The tree world (Act 4). One canvas; it stays transparent until the
-         intro hands off, then it draws its own warm sky + blossom tree. -->
-    <canvas id="tree" class="tree" aria-label="A blossom tree grows and blooms into a heart made of petals" role="img"></canvas>
+<p class="hint" id="hint"></p>
 
-    <!-- ACT 1 — THE INVITATION ------------------------------------------------ -->
-    <section class="hero" id="hero" aria-label="Draw the bow to open my proposal">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__motes" id="motes" aria-hidden="true"></div>
+<script>
+// ================== YAHAN SETTINGS BADLO ==================
+const CFG = {
+  ntfyTopic: "rj-love-8f3k29x",   // ntfy app me jo topic subscribe kiya (nahi chahiye to "")
+  web3formsKey: "277f619e-fc26-4ae6-a180-ed0845c06799", // Web3Forms ki key (email ke liye)
+  from: "Sirf aapka ❤",           // apna naam / sign
+  to: "Annu"                      // uska naam (ya link me ?to=Naam)
+};
+const LINES = [
+  ["Aapne time manga tha…"],
+  ["Maine intezaar kiya, kyunki jo cheez dil se chahiye hoti hai, uske liye ruka bhi jaata hai."],
+  ["Aur is intezaar me ek baat bilkul saaf ho gayi —"],
+  ["mere din ki pehli muskaan aap ho, aur raat ki aakhri dua bhi."],
+  ["Aap meri duniya ho", 1],
+  ["Log taaron me sukoon dhoondhte hain, mujhe aapki ek hansi me mil jaata hai."],
+  ["Main perfect nahi hoon, par ek wada karta hoon —"],
+  ["Hamesha aapke saath khada rahunga", 1],
+  ["Har mod pe aapka haath thaame rahunga", 1],
+  ["Jab aap thakogi, main sahara banunga. Jab duniya ek taraf hogi, main aapki taraf."],
+  ["Aapke saath ka har kal, mere har aaj se zyada khoobsurat hoga."],
+  ["I love you", 1]
+];
+const NOMSG = ["Nahi? 😏","Ek baar phir sochiye 🥺","Pakka? 😢","Dil toot jayega 💔","Ye button thak gaya 🏃","Haan dabana asaan hai 😄","Itna bhi kya sochna 🙈","Bas ek baar 'Haan' bol do 💗"];
+// ==========================================================
 
-      <p class="hero__eyebrow" id="eyebrow">ek chhoti si baat, sirf aapke liye</p>
+const $ = s => document.querySelector(s), sleep = ms => new Promise(r => setTimeout(r, ms));
+const qs = new URLSearchParams(location.search);
+const TO = (qs.get('to') || CFG.to).trim(), FROM = (qs.get('from') || CFG.from).trim();
+if (TO) {
+  $('#hi').textContent = TO + ', aapke liye kuch hai…';
+  $('#qt').textContent = TO + ', kya aap meri banengi?';
+  $('#wt').textContent = 'Shukriya, ' + TO + ' 💗';
+  LINES[0][0] = TO + ', aapne time manga tha…';
+}
+$('#sign').textContent = '— ' + FROM;
 
-      <!-- THE TARGET — the heart the arrow flies to (GSAP animates .target) -->
-      <div class="targetWrap" aria-hidden="true">
-        <div class="target" id="target">
-          <span class="heart__glow" aria-hidden="true"></span>
-          <span class="target__heart" id="targetHeart">
-            <svg class="heart__svg" id="heartSvg" viewBox="0 0 100 92" aria-hidden="true">
-              <defs>
-                <radialGradient id="hg" cx="38%" cy="30%" r="80%">
-                  <stop offset="0%"  stop-color="#ffd9e4" />
-                  <stop offset="42%" stop-color="#ff6f97" />
-                  <stop offset="82%" stop-color="#d81e57" />
-                  <stop offset="100%" stop-color="#9d0f3e" />
-                </radialGradient>
-                <linearGradient id="hsheen" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%"  stop-color="rgba(255,255,255,.85)" />
-                  <stop offset="34%" stop-color="rgba(255,255,255,0)" />
-                </linearGradient>
-                <clipPath id="clipL"><polygon points="-20,-20 50,-20 50,21 44,32 56,44 43,58 55,70 46,80 50,100 -20,100" /></clipPath>
-                <clipPath id="clipR"><polygon points="120,-20 50,-20 50,21 44,32 56,44 43,58 55,70 46,80 50,100 120,100" /></clipPath>
-              </defs>
-              <!-- a BROKEN heart: two halves with a gap. The arrow joins them with gold. -->
-              <g id="hL" clip-path="url(#clipL)">
-                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
-                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
-                <ellipse cx="34" cy="30" rx="8.5" ry="5.4" fill="#fff" opacity=".72" style="mix-blend-mode:screen" />
-              </g>
-              <g id="hR" clip-path="url(#clipR)">
-                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
-                <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
-              </g>
-              <path id="seam" class="seam" d="M50 21 L44 32 L56 44 L43 58 L55 70 L46 80 L50 88" fill="none" stroke="#ffd36a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
-        </div>
-      </div>
+// ---- notification (ntfy push + Web3Forms email) ----
+const sent = new Set();
+function notify(key, title, message) {
+  if (sent.has(key)) return; sent.add(key);
+  const body = message + '\n(' + new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) + ')';
+  try {
+    if (CFG.ntfyTopic) fetch('https://ntfy.sh/', {method: 'POST', body: JSON.stringify({topic: CFG.ntfyTopic, title, message: body, tags: ['heart'], priority: 5})}).catch(err => console.warn('notify failed', err));
+    if (CFG.web3formsKey) fetch('https://api.web3forms.com/submit', {method: 'POST', headers: {'Content-Type': 'application/json', Accept: 'application/json'}, body: JSON.stringify({access_key: CFG.web3formsKey, subject: title, from_name: 'Proposal Site', message: body})}).catch(err => console.warn('notify failed', err));
+  } catch (e) {}
+}
 
-      <!-- THE BOW + ARROW — draw the string back, release to fire. -->
-      <div class="archery" id="archery" role="button" tabindex="0"
-           aria-label="Draw the bow and release to send the arrow to the heart">
+// ---- starry sky + hearts ----
+const cv = $('#c'), x = cv.getContext('2d'), D = Math.min(devicePixelRatio || 1, 2);
+let W, H, S = [], P = [], shoot = null;
+function size() {
+  W = innerWidth; H = innerHeight; cv.width = W * D; cv.height = H * D; x.setTransform(D, 0, 0, D, 0, 0);
+  S = Array.from({length: Math.round(W * H / 5000)}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + .3, p: Math.random() * 6.3, s: Math.random() * 2 + .5}));
+}
+addEventListener('resize', size); size();
+function frame(t) {
+  x.clearRect(0, 0, W, H); x.fillStyle = '#fff';
+  for (const s of S) { x.globalAlpha = .3 + .7 * Math.abs(Math.sin(t / 1000 * s.s + s.p)); x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.3); x.fill(); }
+  if (!shoot && Math.random() < .004) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 1};
+  if (shoot) { x.globalAlpha = shoot.l; x.strokeStyle = '#ffe3ee'; x.lineWidth = 2; x.beginPath(); x.moveTo(shoot.x, shoot.y); x.lineTo(shoot.x - 90, shoot.y - 45); x.stroke(); shoot.x += 9; shoot.y += 4.5; shoot.l -= .015; if (shoot.l <= 0) shoot = null; }
+  P = P.filter(p => p.a > 0);
+  for (const p of P) { p.x += p.vx; p.y += p.vy; p.vy += p.g; p.a -= .005; x.globalAlpha = Math.max(p.a, 0); x.fillStyle = p.c; x.font = p.z + 'px serif'; x.fillText('♥', p.x, p.y); }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+const COL = ['#ff5f86', '#ffb14e', '#ff8fae', '#ffd36a', '#e23b67'];
+function burst(n, ox, oy) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.3, v = Math.random() * 7 + 2; P.push({x: ox, y: oy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, g: .12, a: 1.4, z: 14 + Math.random() * 22, c: COL[i % 5]}); } }
 
-          <!-- aim line, inside the rig so it points straight at the heart -->
-          <div class="aim" id="aim" aria-hidden="true"></div>
+// ---- panes + story ----
+const panes = ['#p0', '#pl', '#pq', '#pw'].map($);
+const show = el => panes.forEach(p => p.classList.toggle('on', p === el));
+let skip = null;
+const wait = ms => new Promise(r => { const t = setTimeout(r, ms); skip = () => { clearTimeout(t); r(); }; });
+addEventListener('pointerdown', e => { if (skip && !e.target.closest('button')) skip(); });
 
-          <!-- realistic recurve bow: wooden limbs, leather grip, a live string -->
-          <svg class="bow" id="bow" viewBox="0 0 460 300" aria-hidden="true">
-            <defs>
-              <linearGradient id="limb" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0"   stop-color="#4a2a1a" />
-                <stop offset=".18" stop-color="#6b3f24" />
-                <stop offset=".5"  stop-color="#8a5127" />
-                <stop offset=".82" stop-color="#6b3f24" />
-                <stop offset="1"   stop-color="#4a2a1a" />
-              </linearGradient>
-              <linearGradient id="limbHi" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="rgba(255,214,160,.8)" />
-                <stop offset="1" stop-color="rgba(255,214,160,0)" />
-              </linearGradient>
-              <linearGradient id="grip" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#2a1a10" />
-                <stop offset=".5" stop-color="#5a3822" />
-                <stop offset="1" stop-color="#2a1a10" />
-              </linearGradient>
-            </defs>
-            <!-- limb body (taper faked with two stacked strokes) -->
-            <path class="bow__limb" d="M34 96 C 118 168, 168 240, 230 252 C 292 240, 342 168, 426 96"
-                  fill="none" stroke="url(#limb)" stroke-width="13" stroke-linecap="round" />
-            <path class="bow__limbHi" d="M34 96 C 118 168, 168 240, 230 252 C 292 240, 342 168, 426 96"
-                  fill="none" stroke="url(#limbHi)" stroke-width="3" stroke-linecap="round" opacity=".7" />
-            <!-- recurve tip hooks -->
-            <path d="M34 96 C 22 82, 26 70, 40 66" fill="none" stroke="url(#limb)" stroke-width="8" stroke-linecap="round" />
-            <path d="M426 96 C 438 82, 434 70, 420 66" fill="none" stroke="url(#limb)" stroke-width="8" stroke-linecap="round" />
-            <!-- leather grip over the belly -->
-            <rect x="216" y="206" width="28" height="70" rx="9" fill="url(#grip)" />
-            <path d="M219 220h22 M219 236h22 M219 252h22" stroke="rgba(0,0,0,.35)" stroke-width="2" />
-            <!-- the string: two segments meeting at the nock (JS animates the nock). -->
-            <line class="bow__str" id="strL" x1="40" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
-            <line class="bow__str" id="strR" x1="420" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
-            <circle class="bow__serving" id="serving" cx="230" cy="96" r="4.5" fill="#6f5137" />
-          </svg>
+$('#start').onclick = async () => {
+  notify('open', '💌 Usne page khol liya', 'Wo abhi tera proposal dekh rahi hai.');
+  $('#hint').textContent = 'skip karne ke liye screen par tap karein';
+  $('#p0').classList.remove('on'); await sleep(900);
+  const pl = $('#pl');
+  for (const [t, big] of LINES) {
+    pl.className = 'pane line' + (big ? ' big' : ''); pl.textContent = t;
+    void pl.offsetWidth; pl.classList.add('on');
+    if (big) burst(6, W / 2, H / 2);
+    await wait(2600 + t.length * 50);
+    pl.classList.remove('on'); await sleep(900);
+  }
+  skip = null; $('#hint').style.opacity = 0; show($('#pq'));
+};
 
-          <!-- the arrow: winged golden heart tip (Cupid), gold feather fletching -->
-          <svg class="arrow" id="arrow" viewBox="0 0 64 220" aria-hidden="true">
-            <defs>
-              <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#4a2c14" />
-                <stop offset=".5" stop-color="#8a5a2c" />
-                <stop offset="1" stop-color="#3e2410" />
-              </linearGradient>
-              <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ffe38c" />
-                <stop offset=".45" stop-color="#f4a626" />
-                <stop offset="1" stop-color="#a85f0e" />
-              </linearGradient>
-              <linearGradient id="feath" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ff7f9c" />
-                <stop offset=".5" stop-color="#e6396a" />
-                <stop offset="1" stop-color="#a8154a" />
-              </linearGradient>
-              <linearGradient id="wing" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#ffffff" />
-                <stop offset="1" stop-color="#ffe0c4" />
-              </linearGradient>
-            </defs>
+// ---- the NO button runs away ----
+const yes = $('#yes'), no = $('#no'); let tries = 0, last = 0;
+function dodge(e) {
+  if (e && e.cancelable) e.preventDefault();
+  const now = Date.now(); if (now - last < 400) return; last = now; tries++;
+  no.classList.add('run');
+  const w = no.offsetWidth, h = no.offsetHeight, r = yes.getBoundingClientRect(); let nx, ny, k = 0;
+  do { nx = 12 + Math.random() * (W - w - 24); ny = 12 + Math.random() * (H - h - 24); k++; }
+  while (k < 40 && nx < r.right + 24 && nx + w > r.left - 24 && ny < r.bottom + 24 && ny + h > r.top - 24);
+  no.style.left = nx + 'px'; no.style.top = ny + 'px';
+  yes.style.setProperty('--s', Math.min(1 + tries * .1, 1.9));
+  $('#msg').textContent = NOMSG[Math.min(tries - 1, NOMSG.length - 1)];
+  if (tries === 1) notify('no', '😄 Usne NO dabane ki koshish ki', 'Button bhaag gaya, ghabrao mat!');
+  if (tries >= 10) { no.style.opacity = 0; no.style.pointerEvents = 'none'; $('#msg').textContent = 'Ab sirf ek hi option bacha hai 😌💗'; }
+}
+['pointerenter', 'pointerdown', 'touchstart', 'mousedown', 'click', 'focus'].forEach(ev => no.addEventListener(ev, dodge, {passive: false}));
 
-            <!-- shaft -->
-            <rect x="29.4" y="30" width="5.2" height="168" rx="2.6" fill="url(#shaft)" />
+yes.onclick = () => {
+  notify('yes', '💗 USNE HAAN BOL DIYA!', 'Proposal accept ho gaya! 🎉');
+  no.style.display = 'none'; show($('#pw'));
+  burst(80, W / 2, H / 2);
+  setInterval(() => burst(3, Math.random() * W, -10), 350);
+};
+</script>
+</body>
+</html> -->
 
-            <!-- angel wings flanking the heart tip -->
-            <g class="arrow__wings">
-              <path class="wingL" d="M31 30 C 10 16, 2 20, 4 34 C 12 30, 20 32, 31 40 Z" fill="url(#wing)" stroke="rgba(196,132,58,.72)" stroke-width="1.2"/>
-              <path class="wingR" d="M33 30 C 54 16, 62 20, 60 34 C 52 30, 44 32, 33 40 Z" fill="url(#wing)" stroke="rgba(196,132,58,.72)" stroke-width="1.2"/>
-            </g>
 
-            <!-- golden heart arrowhead (Cupid's love arrow) -->
-            <path class="arrow__head" d="M32 12 C 30 7, 22 6.5, 21.5 13 C 21 18, 27 22, 32 27 C 37 22, 43 18, 42.5 13 C 42 6.5, 34 7, 32 12 Z" fill="url(#gold)" stroke="#a5701a" stroke-width=".8" />
-            <ellipse cx="27" cy="13" rx="2.6" ry="1.7" fill="#fff" opacity=".8" style="mix-blend-mode:screen" />
 
-            <!-- gold feather fletching -->
-            <g class="arrow__fletch">
-              <path d="M32 150 C 16 156, 10 178, 15 200 C 24 194, 30 184, 32 176 Z" fill="url(#feath)" />
-              <path d="M32 150 C 48 156, 54 178, 49 200 C 40 194, 34 184, 32 176 Z" fill="url(#feath)" opacity=".92" />
-              <path d="M28 160l4 3 M26 170l6 3 M25 180l7 3" stroke="rgba(130,12,48,.45)" stroke-width="1" />
-              <path d="M36 160l-4 3 M38 170l-6 3 M39 180l-7 3" stroke="rgba(130,12,48,.45)" stroke-width="1" />
-            </g>
-            <!-- nock -->
-            <path d="M29 200 L32 205 L35 200" fill="none" stroke="#c9a25a" stroke-width="2" stroke-linecap="round"/>
-            <!-- invisible tip marker: JS measures it to land the head on the heart -->
-            <circle id="tip" cx="32" cy="9" r="0.6" fill="none" />
-          </svg>
-      </div>
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ek sawaal, sirf aapke liye 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;color:#ffeaf1;font-family:'Cormorant Garamond',Georgia,serif}
+body{background:radial-gradient(120% 90% at 50% 100%,#4a1048 0,#170b2e 45%,#05030c 100%)}
+canvas{position:fixed;inset:0;width:100%;height:100%}
+#stage{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center}
+.pane{position:absolute;max-width:min(680px,92vw);opacity:0;transform:translateY(14px);transition:opacity 1s,transform 1s;pointer-events:none}
+.pane.on{opacity:1;transform:none;pointer-events:auto}
+.line{font-size:clamp(1.5rem,5.2vw,2.3rem);font-style:italic;line-height:1.4}
+.line.big{font-family:'Great Vibes',cursive;font-style:normal;font-size:clamp(2.4rem,9vw,4.6rem);color:#ffc2d4;text-shadow:0 0 26px rgba(255,95,134,.65)}
+.hint{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:0;right:0;text-align:center;font-size:.95rem;opacity:.5;letter-spacing:.08em;transition:opacity .5s}
+button{font:700 1.2rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;border:0;border-radius:999px;padding:.8em 1.8em;color:#fff}
+.go,#yes{background:linear-gradient(135deg,#ff5f86,#c2185b);box-shadow:0 10px 30px rgba(194,24,91,.5)}
+.go{animation:ring 1.9s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,95,134,.7),0 10px 30px rgba(194,24,91,.5)}70%,100%{box-shadow:0 0 0 22px rgba(255,95,134,0),0 10px 30px rgba(194,24,91,.5)}}
+.orb{width:96px;height:90px;margin:0 auto 24px;animation:beat 1.3s infinite;filter:drop-shadow(0 0 18px #ff5f86)}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.18)}}
+.title{font-family:'Great Vibes',cursive;font-size:clamp(2.8rem,11vw,5.4rem);color:#ffc2d4;text-shadow:0 0 28px rgba(255,95,134,.7);line-height:1.1}
+.sub{font-size:clamp(1.2rem,4vw,1.6rem);font-style:italic;margin:.6em 0 1.2em;opacity:.9}
+.acts{display:flex;gap:18px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
+#yes{transform:scale(var(--s,1));transition:transform .4s;animation:ring 1.9s infinite}
+#no{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35)}
+#no.run{position:fixed;z-index:5;transition:left .22s,top .22s,opacity .5s}
+#msg{min-height:1.6em;margin-top:20px;font-size:1.2rem;color:#ffd36a}
+.ph{display:block;width:min(46vw,190px);aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid #ffd36a;margin:0 auto 18px;box-shadow:0 0 0 6px rgba(255,95,134,.25),0 0 42px rgba(255,95,134,.7);animation:beat 2.6s infinite}
+.ph.m{width:104px;margin-bottom:12px}
+.sign{margin-top:1.2em;font-family:'Great Vibes',cursive;font-size:2rem;color:#ffc2d4}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="stage">
+  <div class="pane on" id="p0">
+    <img class="ph" src="annu.jpg" alt="Annu" onload="document.getElementById('orb').style.display='none'" onerror="this.style.display='none'">
+    <svg class="orb" id="orb" viewBox="0 0 24 22"><path d="M12 20C5.5 15 1.5 11.4 1.5 6.9 1.5 3.6 4 1.5 7 1.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.5 2.1 5.5 5.4C23.5 11.4 19.5 15 12 20Z" fill="#ff5f86"/></svg>
+    <p class="sub" id="hi">Aapke liye kuch hai…</p>
+    <button class="go" id="start">Yahan dabaiye 💌</button>
+  </div>
+  <div class="pane line" id="pl"></div>
+  <div class="pane" id="pq">
+    <img class="ph m" src="annu.jpg" alt="" onerror="this.style.display='none'">
+    <p class="sub">aur isiliye aaj poochta hoon…</p>
+    <h1 class="title" id="qt">Kya aap meri banengi?</h1>
+    <div class="acts"><button id="yes">Haan 💗</button><button id="no" tabindex="-1">Nahi</button></div>
+    <p id="msg"></p>
+  </div>
+  <div class="pane" id="pw">
+    <img class="ph" src="annu.jpg" alt="" onerror="this.style.display='none'">
+    <h1 class="title" id="wt">Shukriya 💗</h1>
+    <p class="line" style="margin-top:.6em">Aapne meri duniya aur khoobsurat bana di.</p>
+    <p class="line big" style="margin-top:.4em">I love you</p>
+    <p class="line" style="margin-top:.6em">Hamesha aapke saath, har mod pe.</p>
+    <p class="sign" id="sign"></p>
+  </div>
+</div>
 
-      <p class="hero__hint" id="hint">pull &amp; release</p>
-    </section>
+<p class="hint" id="hint"></p>
 
-    <!-- ACT 2 — THE FLOOD ----------------------------------------------------- -->
-    <div class="flood" id="flood" aria-hidden="true"></div>
+<script>
+// ================== YAHAN SETTINGS BADLO ==================
+const CFG = {
+  ntfyTopic: "rj-love-8f3k29x",   // ntfy app me jo topic subscribe kiya (nahi chahiye to "")
+  web3formsKey: "277f619e-fc26-4ae6-a180-ed0845c06799", // Web3Forms ki key (email ke liye)
+  from: "Sirf aapka ❤",           // apna naam / sign
+  to: "Annu"                      // uska naam (ya link me ?to=Naam)
+};
+const LINES = [
+  ["Aapne time manga tha…"],
+  ["Maine intezaar kiya, kyunki jo cheez dil se chahiye hoti hai, uske liye ruka bhi jaata hai."],
+  ["Aur is intezaar me ek baat bilkul saaf ho gayi —"],
+  ["ki aapke bina meri har khushi thodi adhoori lagti hai."],
+  ["Aap meri muskaan ki sabse badi wajah ho", 1],
+  ["Aap saath ho, to mushkil din bhi aasaan lagne lagte hain."],
+  ["Main perfect nahi hoon, par ek wada karta hoon —"],
+  ["Hamesha aapke saath khada rahunga", 1],
+  ["Har mod pe aapka haath thaame rahunga", 1],
+  ["Jab aap thakogi, main sahara banunga. Jab duniya ek taraf hogi, main aapki taraf."],
+  ["Aapke saath ka har kal, mere har aaj se zyada khoobsurat hoga."],
+  ["I love you", 1]
+];
+const NOMSG = ["Nahi? 😏","Ek baar phir sochiye 🥺","Pakka? 😢","Dil toot jayega 💔","Ye button thak gaya 🏃","Haan dabana asaan hai 😄","Itna bhi kya sochna 🙈","Bas ek baar 'Haan' bol do 💗"];
+// ==========================================================
 
-    <!-- ACT 3 — THE WISH (kinetic type on the flood) -------------------------- -->
-    <div class="field" id="field" aria-hidden="true">
-      <div class="blob blob--1"></div>
-      <div class="blob blob--2"></div>
-      <div class="blob blob--3"></div>
-      <div class="fgrid" id="fgrid"></div>
-      <div class="fvignette"></div>
+const $ = s => document.querySelector(s), sleep = ms => new Promise(r => setTimeout(r, ms));
+const qs = new URLSearchParams(location.search);
+const TO = (qs.get('to') || CFG.to).trim(), FROM = (qs.get('from') || CFG.from).trim();
+if (TO) {
+  $('#hi').textContent = TO + ', aapke liye kuch hai…';
+  $('#qt').textContent = TO + ', kya aap meri banengi?';
+  $('#wt').textContent = 'Shukriya, ' + TO + ' 💗';
+  LINES[0][0] = TO + ', aapne time manga tha…';
+}
+$('#sign').textContent = '— ' + FROM;
 
-      <div class="camera" id="camera">
-        <p class="kEyebrow" id="kEyebrow">dil ki gehraiyon se&hellip;</p>
-        <h2 class="headline" id="headline">
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">I Love</span></span></span>
-          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">You</span></span></span>
-        </h2>
-        <svg class="uline" id="uline" viewBox="0 0 300 26" fill="none" aria-hidden="true">
-          <path class="uline__path" d="M8 16C56 7 132 4 178 6c30 1 78 5 114 12-40 3-108 4-176 3"
-                stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <p class="kSub" id="kSub">aap meri duniya ho, aur hamesha rahogi</p>
-      </div>
+// ---- notification (ntfy push + Web3Forms email) ----
+const sent = new Set();
+function notify(key, title, message) {
+  if (sent.has(key)) return; sent.add(key);
+  const body = message + '\n(' + new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) + ')';
+  try {
+    if (CFG.ntfyTopic) fetch('https://ntfy.sh/', {method: 'POST', body: JSON.stringify({topic: CFG.ntfyTopic, title, message: body, tags: ['heart'], priority: 5})}).catch(err => console.warn('notify failed', err));
+    if (CFG.web3formsKey) fetch('https://api.web3forms.com/submit', {method: 'POST', headers: {'Content-Type': 'application/json', Accept: 'application/json'}, body: JSON.stringify({access_key: CFG.web3formsKey, subject: title, from_name: 'Proposal Site', message: body})}).catch(err => console.warn('notify failed', err));
+  } catch (e) {}
+}
 
-      <div class="bar bar--top" id="barTop"></div>
-      <div class="bar bar--bot" id="barBot"></div>
-    </div>
+// ---- starry sky + hearts ----
+const cv = $('#c'), x = cv.getContext('2d'), D = Math.min(devicePixelRatio || 1, 2);
+let W, H, S = [], P = [], shoot = null;
+function size() {
+  W = innerWidth; H = innerHeight; cv.width = W * D; cv.height = H * D; x.setTransform(D, 0, 0, D, 0, 0);
+  S = Array.from({length: Math.round(W * H / 5000)}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + .3, p: Math.random() * 6.3, s: Math.random() * 2 + .5}));
+}
+addEventListener('resize', size); size();
+function frame(t) {
+  x.clearRect(0, 0, W, H); x.fillStyle = '#fff';
+  for (const s of S) { x.globalAlpha = .3 + .7 * Math.abs(Math.sin(t / 1000 * s.s + s.p)); x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.3); x.fill(); }
+  if (!shoot && Math.random() < .004) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 1};
+  if (shoot) { x.globalAlpha = shoot.l; x.strokeStyle = '#ffe3ee'; x.lineWidth = 2; x.beginPath(); x.moveTo(shoot.x, shoot.y); x.lineTo(shoot.x - 90, shoot.y - 45); x.stroke(); shoot.x += 9; shoot.y += 4.5; shoot.l -= .015; if (shoot.l <= 0) shoot = null; }
+  P = P.filter(p => p.a > 0);
+  for (const p of P) { p.x += p.vx; p.y += p.vy; p.vy += p.g; p.a -= .005; x.globalAlpha = Math.max(p.a, 0); x.fillStyle = p.c; x.font = p.z + 'px serif'; x.fillText('♥', p.x, p.y); }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+const COL = ['#ff5f86', '#ffb14e', '#ff8fae', '#ffd36a', '#e23b67'];
+function burst(n, ox, oy) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.3, v = Math.random() * 7 + 2; P.push({x: ox, y: oy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, g: .12, a: 1.4, z: 14 + Math.random() * 22, c: COL[i % 5]}); } }
 
-    <!-- The gold light that bridges the rose wish into the dawn of the tree. -->
-    <div class="bloom" id="bloom" aria-hidden="true"></div>
+// ---- panes + story ----
+const panes = ['#p0', '#pl', '#pq', '#pw'].map($);
+const show = el => panes.forEach(p => p.classList.toggle('on', p === el));
+let skip = null;
+const wait = ms => new Promise(r => { const t = setTimeout(r, ms); skip = () => { clearTimeout(t); r(); }; });
+addEventListener('pointerdown', e => { if (skip && !e.target.closest('button')) skip(); });
 
-    <!-- ACT 4 — THE HAND-LETTERED WISH (over the tree) ------------------------ -->
-    <div class="wish" id="wish" aria-hidden="true">
-      <p class="wish__eyebrow" id="wEyebrow">I love you, aur isiliye poochta hoon&hellip;</p>
-      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">Be Mine?</h1></div>
-      <span class="wish__rule" id="wRule"></span>
-      <p class="wish__sub" id="wSub">mere saath, har mod pe, hamesha ke liye</p>
-    </div>
+$('#start').onclick = async () => {
+  notify('open', '💌 Usne page khol liya', 'Wo abhi tera proposal dekh rahi hai.');
+  $('#hint').textContent = 'skip karne ke liye screen par tap karein';
+  $('#p0').classList.remove('on'); await sleep(900);
+  const pl = $('#pl');
+  for (const [t, big] of LINES) {
+    pl.className = 'pane line' + (big ? ' big' : ''); pl.textContent = t;
+    void pl.offsetWidth; pl.classList.add('on');
+    if (big) burst(6, W / 2, H / 2);
+    await wait(2600 + t.length * 50);
+    pl.classList.remove('on'); await sleep(900);
+  }
+  skip = null; $('#hint').style.opacity = 0; show($('#pq'));
+};
 
-    <!-- Play the film again once it has settled. -->
-    <button class="replay" id="replay" type="button" hidden>
-      <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
-        <path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" fill="currentColor" />
-      </svg>
-      Again
-    </button>
+// ---- the NO button runs away ----
+const yes = $('#yes'), no = $('#no'); let tries = 0, last = 0;
+function dodge(e) {
+  if (e && e.cancelable) e.preventDefault();
+  const now = Date.now(); if (now - last < 400) return; last = now; tries++;
+  no.classList.add('run');
+  const w = no.offsetWidth, h = no.offsetHeight, r = yes.getBoundingClientRect(); let nx, ny, k = 0;
+  do { nx = 12 + Math.random() * (W - w - 24); ny = 12 + Math.random() * (H - h - 24); k++; }
+  while (k < 40 && nx < r.right + 24 && nx + w > r.left - 24 && ny < r.bottom + 24 && ny + h > r.top - 24);
+  no.style.left = nx + 'px'; no.style.top = ny + 'px';
+  yes.style.setProperty('--s', Math.min(1 + tries * .1, 1.9));
+  $('#msg').textContent = NOMSG[Math.min(tries - 1, NOMSG.length - 1)];
+  if (tries === 1) notify('no', '😄 Usne NO dabane ki koshish ki', 'Button bhaag gaya, ghabrao mat!');
+  if (tries >= 10) { no.style.opacity = 0; no.style.pointerEvents = 'none'; $('#msg').textContent = 'Ab sirf ek hi option bacha hai 😌💗'; }
+}
+['pointerenter', 'pointerdown', 'touchstart', 'mousedown', 'click', 'focus'].forEach(ev => no.addEventListener(ev, dodge, {passive: false}));
 
-    <!-- One lens over the whole film: vignette + fine grain. -->
-    <div class="grade" aria-hidden="true">
-      <div class="grade__vignette"></div>
-      <div class="grade__grain"></div>
-    </div>
-  </main>
-
-  <!-- Accessible equivalent for reduced-motion + screen readers. -->
-  <p class="sr-only">I love you. Will you be mine?</p>
-
-  <script type="module" src="./love.js"></script>
+yes.onclick = () => {
+  notify('yes', '💗 USNE HAAN BOL DIYA!', 'Proposal accept ho gaya! 🎉');
+  no.style.display = 'none'; show($('#pw'));
+  burst(80, W / 2, H / 2);
+  setInterval(() => burst(3, Math.random() * W, -10), 350);
+};
+</script>
 </body>
 </html>
